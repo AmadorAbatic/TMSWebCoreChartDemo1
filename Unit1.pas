@@ -71,20 +71,19 @@ procedure TForm1.LoadChart;
 var
   arrayValues: TJSArray;
   arrayCategories: TJSArray;
-  strType: string;
+  strType, strData: string;
   intItem: Integer;
-  strData: STring;
 begin
   arrayValues := TJSArray.new();
   arrayCategories := TJSArray.new();
   strType := cbChartType.Text;
-  for intItem:=0 to lbData.items.Count - 1 do
+
+  for strData in lbData.Items do
     begin
-      strData := lbData.items[intItem];
       arrayCategories.push(copy(strData, 0, Pos('-', strData) -1).Trim());
-      arrayValues.push(copy(strData, Pos('-', strData) + 1, Length(strData)-1).Trim());
+      arrayValues.push(copy(strData, Pos('-', strData) + 1, Length(strData)-1).Trim());      
     end;
-  document.getElementById('chartdiv').innerHTML := '';
+
   asm
     var options = {
         chart: {
